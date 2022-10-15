@@ -1,3 +1,10 @@
+<?php 
+session_start();
+if(!empty($_SESSION["username"])){
+    header("Location:index.php");
+    die();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +36,7 @@
 </form>
     <div align="center">
         <br>
-        ถ้ายังไม่ได้เป็นสมาชิก <a href="reg.html">สมัครสมาชิก</a>
+        ถ้ายังไม่ได้เป็นสมาชิก <a href="reg.php">สมัครสมาชิก</a>
     </div>
 
 </body>

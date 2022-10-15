@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,14 +17,46 @@
         <option value="all"> - - ทั้งหมด - - </option> 
         <option value="gen"> - - ทั่วไป - - </option>
         <option value="sty"> - - เรียน - - </option>
-    </select> </p>
-    <p>
-        <a href="login.html" style="float: right;"> เข้าสู่ระบบ </a>
-    </p>
+    </select> 
+    <?php
+    if(empty($_SESSION["username"])){?>
+        &emsp;&emsp;&emsp;&emsp; ผู้ใช้งานระบบ : guest
+    <?php
+    }else{
+    ?>
+    &emsp;&emsp;&emsp;&emsp; ผู้ใช้งานระบบ : <?php echo $_SESSION["username"] ?>
+    <?php
+    }
+    ?>
+    
     <?php 
-        for($i=1;$i<=10;$i++){
-            echo "<a href=\"post.php?id=$i\"> กระทู้ที่ $i </a><br>";
+    if(empty($_SESSION["username"])){
+    ?>
+        <a href="login.php" style="float: right;"> เข้าสู่ระบบ </a>
+    <?php
+    }else{
+    ?>
+        <a href="logout.php" style="float: right;"> ออกจากระบบ </a>
+    <?php
+    }
+    ?>
+    </p>
+    <a href="newpost.php"> สร้างกระทู้ใหม่ </a><br><br>
+    
+    <?php 
+    for($i=1;$i<=10;$i++){
+        echo "<a href=\"post.php?id=$i\"> กระทู้ที่ $i </a>";
+        if(empty($_SESSION['role'])){
+            echo "<br>";
+            continue;
+        }else{
+            if($_SESSION['role'] == "a"){
+                echo "<a href=\"delete.php?id=$i\">&emsp;ลบ</a><br>";
+            }else{
+                echo "<br>";
+            }
         }
+    }
     ?>
 </body>
 </html>
